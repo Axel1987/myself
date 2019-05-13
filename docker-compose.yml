@@ -9,13 +9,21 @@ services:
       - php
       - database
     volumes:
-      - "./api:/api"
       - "./docker/nginx:/etc/nginx/conf.d"
+    volumes_from:
+      - php
+
+  node:
+    build: "./docker/node"
+    ports:
+      - ${NODE_EXTERNAL_PORT}:${NODE_PORT}
 
   php:
     build: "./docker/php"
     volumes:
       - "./api:/api"
+      - "./docker/supervisor:/etc/supervisor/conf.d/"
+      - "./docker/cron/:/etc/cron.d/"
     env_file:
       - .env
 
@@ -29,3 +37,10 @@ services:
        - MYSQL_USER=${DB_USERNAME}
       volumes:
        - "./docker/mysql/data:/var/lib/mysql"
+
+  redis:
+    build: "./docker/redis"
+    ports:
+      - ${REDIS_EXTERNAL_PORT}:6379
+    volumes:
+      - "./docker/redis/data:/data"
