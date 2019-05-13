@@ -26,6 +26,8 @@ services:
       - "./docker/cron/:/etc/cron.d/"
     env_file:
       - .env
+    ports:
+      - ${SUPERVISOR_EXTERNAL_PORT}:9001
 
   database:
       image: mysql:5.7
