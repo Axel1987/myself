@@ -14,7 +14,7 @@ services:
       - php
 
   node:
-    build: "./docker/node"
+    image: node:8
     ports:
       - ${NODE_EXTERNAL_PORT}:${NODE_PORT}
 
@@ -41,7 +41,7 @@ services:
        - "./docker/mysql/data:/var/lib/mysql"
 
   redis:
-    build: "./docker/redis"
+    image: redis:4.0.5-alpine
     ports:
       - ${REDIS_EXTERNAL_PORT}:6379
     volumes:
