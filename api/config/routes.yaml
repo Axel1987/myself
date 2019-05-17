@@ -1,0 +1,4 @@
+sign_in:
+  path: /sign-in
+  controller: App\Controller\AuthenticationController::signIn
+  methods: [GET|HEAD]
